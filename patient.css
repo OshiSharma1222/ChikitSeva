@@ -1,0 +1,454 @@
+/* Patient Page Specific Styles */
+.patient-main {
+    padding: 8rem 2rem 4rem;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Gender Switch */
+.gender-switch {
+    display: flex;
+    gap: 0.5rem;
+    background: #f1f5f9;
+    padding: 0.25rem;
+    border-radius: 25px;
+    margin-right: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.gender-btn {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    background: transparent;
+    color: #4f46e5;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.gender-switch::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: #4f46e5;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    z-index: 0;
+}
+
+.gender-switch[data-active="female"]::before {
+    transform: translateX(100%);
+}
+
+.gender-btn.active {
+    color: white;
+}
+
+/* Login/Signup Buttons */
+.login-btn, .signup-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: white;
+    color: #4f46e5;
+    border: 2px solid #4f46e5;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+/* ABHA Login/Signup Section */
+.abha-section {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.abha-section h3 {
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.abha-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.abha-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #4f46e5;
+    border-radius: 25px;
+    background: white;
+    color: #4f46e5;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.abha-btn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+/* Patient Features Grid */
+.patient-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.patient-features .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.patient-features .feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.patient-features .feature-icon {
+    width: 80px;
+    height: 80px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.patient-features .feature-icon i {
+    font-size: 2rem;
+    color: #4f46e5;
+}
+
+.patient-features h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.patient-features p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.feature-btn {
+    padding: 0.75rem 1.5rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.feature-btn:hover {
+    background: #4338ca;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #64748b;
+}
+
+.modal-content h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1e293b;
+}
+
+.login-form, .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-form input, .signup-form input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.login-form button, .signup-form button {
+    padding: 0.75rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 1rem;
+    color: #64748b;
+}
+
+.form-footer a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ABHA Modal Styles */
+.abha-modal-content {
+    text-align: center;
+}
+
+.abha-modal-content p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.abha-qr {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 1.5rem;
+    background: #f1f5f9;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.abha-qr i {
+    font-size: 4rem;
+    color: #4f46e5;
+}
+
+/* Quick Access Section */
+.quick-access {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.quick-access-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.quick-access-card:hover {
+    transform: translateY(-5px);
+}
+
+.quick-access-icon {
+    width: 80px;
+    height: 80px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.quick-access-icon i {
+    font-size: 2rem;
+    color: #4f46e5;
+}
+
+.quick-access-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.quick-access-card p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.quick-access-btn {
+    padding: 0.75rem 1.5rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quick-access-btn:hover {
+    background: #4338ca;
+}
+
+/* Education Section */
+.education-section {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 4rem 2rem;
+    margin: 2rem 0;
+    border-radius: 15px;
+}
+
+.education-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.education-content h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.education-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.education-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.education-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.education-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .gender-switch {
+        margin-right: 0;
+    }
+    
+    .patient-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-access {
+        grid-template-columns: 1fr;
+    }
+    
+    .education-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .education-content h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Ensure all sections are visible */
+section {
+    opacity: 1;
+    visibility: visible;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Add some spacing between sections */
+section + section {
+    margin-top: 2rem;
+}
+
+/* Make sure all cards are visible */
+.quick-access-card,
+.education-card,
+.feature-card {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+/* Ensure buttons are visible */
+.quick-access-btn,
+.feature-btn,
+.abha-btn {
+    opacity: 1;
+    visibility: visible;
+} 

@@ -15,7 +15,7 @@ body {
 /* Navigation Bar */
 .navbar {
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 1rem 2rem;
+    padding: 1.5rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,7 +28,7 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #4f46e5;
     display: flex;
@@ -42,7 +42,7 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
     align-items: center;
 }
 
@@ -50,8 +50,10 @@ body {
     text-decoration: none;
     color: #4b5563;
     font-weight: 500;
+    font-size: 1.1rem;
     transition: all 0.3s ease;
     position: relative;
+    padding: 0.5rem 1rem;
 }
 
 .nav-links a::after {
@@ -73,6 +75,29 @@ body {
     width: 100%;
 }
 
+.nav-links a[href="#patients"],
+.nav-links a[href="#hospitals"] {
+    background-color: #4f46e5;
+    color: white;
+    border: 2px solid #4f46e5;
+}
+
+.nav-links a[href="#patients"]:hover,
+.nav-links a[href="#hospitals"]:hover {
+    background-color: transparent;
+    color: #4f46e5;
+}
+
+.nav-links a[href="#contact"] {
+    border: 2px solid #4f46e5;
+    border-radius: 25px;
+}
+
+.nav-links a[href="#contact"]:hover {
+    background-color: #4f46e5;
+    color: white;
+}
+
 .notification-icon {
     position: relative;
     color: #4b5563;
@@ -81,6 +106,7 @@ body {
 
 .notification-icon:hover {
     transform: scale(1.1);
+    color: #4f46e5;
 }
 
 .notification-badge {
@@ -97,7 +123,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 6rem 2rem;
+    padding: 8rem 2rem 6rem;
     text-align: center;
     background: linear-gradient(135deg, #4f46e5, #7c3aed);
     color: white;
@@ -114,10 +140,11 @@ body {
     margin: 0 auto;
     position: relative;
     z-index: 2;
+    padding: 0 1rem;
 }
 
 .hero-text {
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
 }
 
 .hero h1 {
@@ -138,8 +165,9 @@ body {
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding: 0 1rem;
 }
 
 .feature-card {
