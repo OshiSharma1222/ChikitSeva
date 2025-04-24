@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChikitSeva - Patient Portal</title>
+    <title>E+Swasthya - Patient Portal</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="patient.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -12,23 +12,49 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">
+        <a href="patient.html" class="logo">
             <i class="fas fa-heartbeat"></i>
-            ChikitSeva
-        </div>
+            <span>E+Swasthya</span>
+        </a>
         <div class="nav-links">
-            <div class="gender-switch" data-active="male">
-                <button class="gender-btn active" data-gender="male">Male Care</button>
-                <button class="gender-btn" data-gender="female">Female Care</button>
+            <div class="auth-buttons">
+                <button class="login-btn">Login</button>
+                <button class="signup-btn">Sign Up</button>
             </div>
-            <a href="#" class="login-btn">Login</a>
-            <a href="#" class="signup-btn">Sign Up</a>
+            <!-- AI Chatbot Button -->
+            <button class="chatbot-btn">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+            </button>
             <a href="#" class="notification-icon">
                 <i class="fas fa-bell"></i>
                 <span class="notification-badge">3</span>
             </a>
         </div>
     </nav>
+
+    <!-- AI Chatbot Widget -->
+    <div class="chatbot-widget" id="chatbotWidget">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> AI Health Assistant</h3>
+            <div class="chatbot-controls">
+                <button class="voice-btn" title="Voice Assistant">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button class="close-chat">×</button>
+            </div>
+        </div>
+        <div class="chatbot-messages">
+            <div class="message bot-message">
+                Hello! I'm your AI health assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Type your message...">
+            <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+            <button class="voice-input-btn"><i class="fas fa-microphone"></i></button>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main class="patient-main">
@@ -43,23 +69,20 @@
 
         <!-- Quick Access Section -->
         <section class="quick-access">
-            <div class="quick-access-card appointment-card">
+            <a href="find-hospitals.html" class="quick-access-card">
+                <div class="quick-access-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h3>Find Nearby Hospitals</h3>
+                <p>Search for nearby hospitals and clinics</p>
+            </a>
+            <a href="appointments.html" class="quick-access-card">
                 <div class="quick-access-icon">
                     <i class="fas fa-calendar-check"></i>
                 </div>
                 <h3>Book Appointment</h3>
                 <p>Schedule your next doctor visit</p>
-                <button class="quick-access-btn">Book Now</button>
-            </div>
-
-            <div class="quick-access-card hospital-card">
-                <div class="quick-access-icon">
-                    <i class="fas fa-hospital"></i>
-                </div>
-                <h3>Find Hospital</h3>
-                <p>Locate nearby healthcare facilities</p>
-                <button class="quick-access-btn">Search</button>
-            </div>
+            </a>
         </section>
 
         <!-- Hygiene & Wellness Education -->
@@ -99,7 +122,7 @@
                 </div>
                 <h3>AI Report Analyzer</h3>
                 <p>Get intelligent analysis of your medical reports</p>
-                <button class="feature-btn">Try Now</button>
+                <a href="report-analyzer.html" class="feature-btn">Try Now</a>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -107,7 +130,7 @@
                 </div>
                 <h3>Report Storage</h3>
                 <p>Securely store and access your medical reports</p>
-                <button class="feature-btn">View Reports</button>
+                <a href="report-storage.html" class="feature-btn">View Reports</a>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -207,5 +230,23 @@
     </div>
 
     <script src="patient.js"></script>
+    <script src="chatbot.js"></script>
+
+    <!-- Initialize chatbot after DOM loads -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add initial message when page loads
+            const chatMessages = document.querySelector('.chatbot-messages');
+            if (chatMessages) {
+                chatMessages.innerHTML = '<div class="message bot-message">Hello! I\'m your E-Swasthya medical assistant. How can I help you today? Please describe your health concern or symptoms.</div>';
+            }
+
+            // Show chatbot on page load
+            const chatbotWidget = document.querySelector('.chatbot-widget');
+            if (chatbotWidget) {
+                chatbotWidget.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html> 

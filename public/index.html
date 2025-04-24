@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report Analyzer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #uploadArea {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        #uploadArea.drag-over {
+            background: #f0f0f0;
+            border-color: #666;
+        }
+        #uploadedFiles {
+            margin: 20px 0;
+            display: none;
+        }
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        #analyzeBtn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #analyzeBtn:disabled {
+            background: #ccc;
+        }
+        #loadingSpinner {
+            display: none;
+            margin: 20px 0;
+        }
+        #resultsSection {
+            margin-top: 20px;
+            display: none;
+        }
+        .result-card {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Medical Report Analyzer</h1>
+    
+    <div id="uploadArea">
+        <p>Drag and drop a medical report here or click to select</p>
+        <input type="file" id="fileInput" accept=".pdf,image/*" style="display: none;">
+    </div>
+
+    <div id="uploadedFiles"></div>
+
+    <button id="analyzeBtn" disabled>Analyze Report</button>
+
+    <div id="loadingSpinner">
+        Analyzing report... Please wait...
+    </div>
+
+    <div id="resultsSection">
+        <h2>Analysis Results</h2>
+        <div class="results-container"></div>
+    </div>
+
+    <script>
+        // Initialize PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const resultsSection = document.getElementById('resultsSection');
+
+        let currentFile = null;
+
+        // Event Listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('dragleave', handleDragLeave);
+        uploadArea.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileSelect);
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFiles(files[0]);
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            if (files.length > 0) handleFiles(files[0]);
+        }
+
+        function handleFiles(file) {
+            const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please upload a PDF or image file');
+                return;
+            }
+            currentFile = file;
+            displayFileInfo(file);
+            analyzeBtn.disabled = false;
+        }
+
+        function displayFileInfo(file) {
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            uploadedFiles.innerHTML = `
+                <div class="file-info">
+                    <span>${file.name}</span>
+                    <span>${fileSize} MB</span>
+                </div>
+            `;
+            uploadedFiles.style.display = 'block';
+        }
+
+        analyzeBtn.addEventListener('click', async () => {
+            if (!currentFile) return;
+            
+            loadingSpinner.style.display = 'block';
+            analyzeBtn.disabled = true;
+            resultsSection.style.display = 'none';
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', currentFile);
+                
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to analyze report');
+                }
+                
+                const analysis = await response.json();
+                displayResults(analysis);
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                loadingSpinner.style.display = 'none';
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        function displayResults(result) {
+            const container = document.querySelector('.results-container');
+            container.innerHTML = `
+                <div class="result-card">
+                    <h3>Summary</h3>
+                    <p>${result.summary}</p>
+                </div>
+                
+                <div class="result-card">
+                    <h3>Key Findings</h3>
+                    <ul>
+                        ${result.findings.map(finding => `<li>${finding}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="result-card">
+                    <h3>Recommendations</h3>
+                    <h4>Precautions</h4>
+                    <ul>
+                        ${result.recommendations.precautions.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                    
+                    <h4>Medications</h4>
+                    <ul>
+                        ${result.recommendations.medications.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                    
+                    <h4>Lifestyle Changes</h4>
+                    <ul>
+                        ${result.recommendations.lifestyle.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="result-card">
+                    <h3>Follow-up Actions</h3>
+                    <ul>
+                        ${result.followUp.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html> 
